@@ -1,8 +1,10 @@
 package loupollivier.projet.onlinecvboilerplate.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import loupollivier.projet.onlinecvboilerplate.dto.ProjectDto;
 
 import javax.persistence.*;
@@ -14,7 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "project")
+@Table(name = "projects")
 public class ProjectEntity implements Serializable {
 
     @Id
@@ -28,31 +30,13 @@ public class ProjectEntity implements Serializable {
     private LocalDate endDate;
     @Column(name="team_size")
     private Integer teamSize;
+    @OneToMany(mappedBy = "project")
+    @ToString.Exclude
+    private List<ProjectDetailsEntity> details;
+    @ManyToMany
     @JoinTable
-    @OneToMany
-    private List<DetailsEntity> details;
-    @JoinTable
-    @OneToMany
     private List<TechnologyEntity> technologies;
+    @ManyToMany
     @JoinTable
-    @OneToMany
     private List<ToolEntity> tools;
-
-    public ProjectDto convertEntityToDto () {
-        DetailsEntity projectDetails = this.details.get(0);
-
-        ProjectDto projectDto = new ProjectDto();
-        projectDto.setId(this.id);
-        projectDto.setClient(this.client);
-        projectDto.setStartDate(this.startDate);
-        projectDto.setEndDate(this.endDate);
-        projectDto.setTeamSize(this.teamSize);
-        projectDto.setTechnologies(this.technologies);
-        projectDto.setTools(this.tools);
-        projectDto.setDescription(projectDetails.getDescription());
-        projectDto.setPosition(projectDetails.getPosition());
-        projectDto.setTitle(projectDetails.getTitle());
-
-        return projectDto;
-    }
 }

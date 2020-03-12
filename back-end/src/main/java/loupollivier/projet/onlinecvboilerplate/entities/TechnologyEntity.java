@@ -3,24 +3,21 @@ package loupollivier.projet.onlinecvboilerplate.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "technology")
+@Table(name = "technologies")
 public class TechnologyEntity implements Serializable {
 
     @Id
     @Column(name="id")
     private Integer id;
-
     @Column(name="name")
-    private String name;
+    private String name;;
 }

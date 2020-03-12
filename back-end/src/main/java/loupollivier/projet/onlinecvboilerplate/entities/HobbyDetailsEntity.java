@@ -12,12 +12,21 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tools")
-public class ToolEntity implements Serializable {
+@Table(name = "hobby_details")
+public class HobbyDetailsEntity implements Serializable {
 
     @Id
     @Column(name="id")
     private Integer id;
     @Column(name="name")
     private String name;
+    @Column(name="description", length = 1000)
+    private String description;
+    @Column(name="language")
+    private String language;
+    @ManyToOne
+    @JoinColumn(name="hobby_id")
+    @ToString.Exclude
+    private HobbyEntity hobby;
+
 }

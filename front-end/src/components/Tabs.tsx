@@ -8,32 +8,49 @@ import { colors } from '../constants/styles';
 import { ProjectList } from './projects/projectList';
 import { DescriptionCard } from './description/descriptionCard';
 import { TopBar } from './TopBar';
-import { HobbyCard } from './hobbies/hobbyCard';
+import { HobbyList } from './hobbies/hobbyList';
+import ProjectsProvider from '../contexts/projects-context';
+import ExperiencesProvider from '../contexts/experiences-context';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    root: {
-      flexGrow: 1,
+    pageBackground: {
+      height: '100%',
+      width: '100%',
+      position: 'fixed',
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat'
+    },
+    pageContent: {
+      height: '100%',
+      backgroundColor: 'rgba(255,255,255,.95)',
+      marginLeft: '25%',
+      marginRight: '25%'
+    },
+    appBar: {
+      height: '80px'
     },
     homeTab: {
-      height: '30px',
       backgroundColor: colors.warning,
     },
     projectsTab: {
-      height: '30px',
       backgroundColor: colors.info,
     },
     hobbiesTab: {
-      height: '30px',
       backgroundColor: colors.success,
     },
+    root: {
+      flexGrow: 1
+    }
   })
 );
 
 const StyledTab = withStyles({
   root: {
-    minHeight: "46px",
-    padding: 0
+    minHeight: "40px",
+    padding: 0,
+    opacity: 1
   }
 })(Tab);
 
@@ -42,16 +59,19 @@ interface TabsBarOwnProps {
   user: any;
   login: any;
   logout: any;
+  backgrounds: any;
 }
 
 interface TabPanelProps {
   index: any;
   value: any;
   children?: React.ReactNode;
+  background: any;
 }
 
 function TabPanel(props: TabPanelProps) {
-  const { children, value, index } = props;
+  const { children, value, index, background } = props;
+  const classes = useStyles();
   return (
     <Typography
       component="div"
@@ -59,8 +79,10 @@ function TabPanel(props: TabPanelProps) {
       hidden={value !== index}
       id={`nav-tab-${index}`}
       aria-labelledby={`nav-tab-${index}`}
+      className={classes.pageBackground}
+      style={{ backgroundImage: `url(${background})` }}
     >
-      <Box p={3}>{children}</Box>
+      <Box className={classes.pageContent}>{children}</Box>
     </Typography>
   );
 }
@@ -72,10 +94,10 @@ function setTabProps(index: any) {
   };
 }
 
-export const TabsBar: React.FC<TabsBarOwnProps> = ({ isLoading, user, login, logout }) => {
+export const TabsBar: React.FC<TabsBarOwnProps> = ({ isLoading, user, login, logout, backgrounds }) => {
   const { t } = useTranslation();
   const classes = useStyles();
-  const [value, setValue] = React.useState(2);
+  const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
@@ -83,7 +105,7 @@ export const TabsBar: React.FC<TabsBarOwnProps> = ({ isLoading, user, login, log
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="sticky" className={classes.appBar}>
         <TopBar isLoading={isLoading} user={user} login={login} logout={logout} />
         <Tabs variant="fullWidth" value={value} onChange={handleChange} aria-label="nav-tabs">
           <StyledTab label={t('tabs.home')} {...setTabProps(0)} className={classes.homeTab} />
@@ -91,14 +113,18 @@ export const TabsBar: React.FC<TabsBarOwnProps> = ({ isLoading, user, login, log
           <StyledTab label={t('tabs.hobbies')} {...setTabProps(2)} className={classes.hobbiesTab} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
-        <DescriptionCard />
+      <TabPanel value={value} index={0} background={backgrounds[0]}>
+        <ExperiencesProvider>
+          <DescriptionCard />
+        </ExperiencesProvider>
       </TabPanel>
-      <TabPanel value={value} index={1}>
-        <ProjectList />
+      <TabPanel value={value} index={1} background={backgrounds[1]}>
+        <ProjectsProvider>
+          <ProjectList />
+        </ProjectsProvider>
       </TabPanel>
-      <TabPanel value={value} index={2}>
-        <HobbyCard />
+      <TabPanel value={value} index={2} background={backgrounds[2]}>
+        <HobbyList />
       </TabPanel>
     </div>
   )

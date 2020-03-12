@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
  * Controllers that will interact with technologies objects.
  */
 @RestController
+@RequestMapping("/technologies")
 public class TechnologyController {
 
     private TechnologyService technologyService;
@@ -27,7 +29,7 @@ public class TechnologyController {
         this.modelMapper = modelMapper;
     }
 
-    @GetMapping(value = "/search/technologies")
+    @GetMapping(value = "/getAll")
     public ResponseEntity<List<TechnologyDto>> getAllTechnologies() {
         List<TechnologyEntity> technologyList = technologyService.findAll();
         List<TechnologyDto> resultTrue = technologyList.stream().map(technology -> this.modelMapper.map(technology, TechnologyDto.class)).collect(Collectors.toList());

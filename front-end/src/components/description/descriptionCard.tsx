@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import useAxios from 'axios-hooks';
 import moment from 'moment';
 
 import { Theme, createStyles, Grid, Avatar, Divider, Typography, Stepper, Step, StepLabel, StepContent } from '@material-ui/core';
@@ -8,11 +7,15 @@ import { makeStyles } from '@material-ui/styles';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 import { colors, fontSizes } from '../../constants/styles';
-import { api } from '../../constants/apiEndpoints';
 import { Experience } from '../../models/experience';
+import { ExperiencesContext } from '../../contexts/experiences-context';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    descriptionContainer: {
+      width: '100%',
+      paddingTop: '30px'
+    },
     avatar: {
       width: theme.spacing(8),
       height: theme.spacing(8)
@@ -25,11 +28,12 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '45%',
     },
     body: {
-      width: '50%',
+      width: '90%',
       alignItems: 'center',
       marginBottom: '64px'
     },
     experiences: {
+      backgroundColor: 'rgba(0,0,0,0)',
       padding: '0px',
     },
     title: {
@@ -92,12 +96,12 @@ function RenderDate(experience: Experience, t: any) {
 }
 
 export const DescriptionCard: React.FC<ExperienceProps> = () => {
-  const [{ data: experiences, loading: getExperiencesLoading, error: getExperiencesError }] = useAxios(api.experiences);
+  const { experiences } = useContext(ExperiencesContext);
   const { t } = useTranslation();
   const classes = useStyles();
 
   return (
-    <Grid container direction='column' alignItems='center' spacing={1}>
+    <Grid container direction='column' alignItems='center' className={classes.descriptionContainer}>
       <Grid item>
         <Avatar alt='Loup Ollivier' src={'https://lh3.googleusercontent.com/a-/AAuE7mCy5OQzhRu9KjOsdvXQNyaRWp0jTF_f2w3s30NK'} className={classes.avatar}></Avatar>
       </Grid>
@@ -110,22 +114,20 @@ export const DescriptionCard: React.FC<ExperienceProps> = () => {
           {t('description.text')}
         </Typography>
       </Grid>
-      {!getExperiencesLoading && !getExperiencesError && experiences &&
-        <Grid item className={classes.body}>
-          <Stepper orientation="vertical" className={classes.experiences}>
-            {experiences.map((experience: Experience, index: number) => (
-              <Step key={index} active={true} >
-                <StepLabel StepIconComponent={StepIcon}>
-                  {RenderDate(experience, t)}
-                </StepLabel>
-                <StepContent>
-                  <Typography align='justify' className={classes.description}>{experience.description}</Typography>
-                </StepContent>
-              </Step>
-            ))}
-          </Stepper>
-        </Grid>
-      }
+      <Grid item className={classes.body}>
+        <Stepper orientation="vertical" className={classes.experiences}>
+          {experiences.map((experience: Experience, index: number) => (
+            <Step key={index} active={true} >
+              <StepLabel StepIconComponent={StepIcon}>
+                {RenderDate(experience, t)}
+              </StepLabel>
+              <StepContent>
+                <Typography align='justify' className={classes.description}>{experience.description}</Typography>
+              </StepContent>
+            </Step>
+          ))}
+        </Stepper>
+      </Grid>
     </Grid>
   );
 }

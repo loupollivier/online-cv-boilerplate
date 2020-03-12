@@ -1,46 +1,72 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/styles';
-import { Card, CardMedia, CardContent, Typography } from '@material-ui/core';
+import { Typography, Button, Grid, Paper } from '@material-ui/core';
 
-import { Hobby } from '../../models/hobby';
 import { fontSizes, colors } from '../../constants/styles';
+import { HobbyFormValues } from './hobbyForm';
+import { useAuth0 } from '../../contexts/auth0-context';
 
 const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
+  hobby: {
+    width: '100%',
   },
-  media: {
-    height: 140,
+  background: {
+    height: '100%',
+    width: '100%',
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+  },
+  text: {
+    backgroundColor: 'rgba(255,255,255,.90)',
+    padding: '8px',
+    width: '50%'
+  },
+  content: {
+    flex: '1 0 auto',
   },
   title: {
+    fontWeight: 'bold',
     fontSize: fontSizes.title,
     color: colors.success,
   },
-  content: {
+  description: {
     fontSize: fontSizes.regular,
+  },
+  edit: {
+    marginLeft: '8px'
   }
 });
 
 interface HobbyProps {
+  hobby: HobbyFormValues;
+  onEdit: () => void;
 }
 
-export const HobbyCard: React.FC<HobbyProps> = () => {
+export const HobbyCard: React.FC<HobbyProps> = ({ hobby, onEdit }) => {
   const classes = useStyles();
+  const { t } = useTranslation();
+  const { user } = useAuth0();
 
   return (
-    <Card className={classes.root}>
-      <CardMedia
-        className={classes.media}
-        image="https://cnet1.cbsistatic.com/img/bM6_8sk2-FFgxrr4E9jgyJLyeNY=/644x0/2019/08/26/84874730-13f8-42e9-8885-3c23c08c358c/gettyimages-1127551032.jpg"
-      />
-      <CardContent>
-        <Typography className={classes.title}>Escalade</Typography>
-        <Typography className={classes.content}>
-          Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-          across all continents except Antarctica
-          </Typography>
-      </CardContent>
-    </Card>
+    <Grid container>
+      <Paper className={classes.background} style={{ backgroundImage: `url(${hobby.imageUrl})` }} elevation={0} square>
+        <Grid item className={classes.hobby} container justify='flex-end'>
+          <Grid item className={classes.text}>
+            <Typography className={classes.title}>{hobby.name}</Typography>
+            <Typography className={classes.description}>{hobby.description}</Typography>
+          </Grid>
+        </Grid>
+      </Paper>
+      {user && (user.nickname === 'loup.ollivier') &&
+        <Grid item>
+          <Button size='small' variant="outlined" color="primary" className={classes.edit} onClick={onEdit}>
+            {t('project.button.edit')}
+          </Button>
+        </Grid>
+      }
+    </Grid>
   );
 }

@@ -1,21 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useContext } from 'react';
 
-import { Grid, makeStyles, createStyles } from '@material-ui/core';
+import { Grid, makeStyles, createStyles, List, ListItem } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { ProjectContainer } from './projectContainer';
 import { Project } from '../../models/project';
 import { colors } from '../../constants/styles';
-import { getProjectsByLanguage } from '../../actions/projectActions';
+import { ProjectsContext } from '../../contexts/projects-context';
 
 const useStyles = makeStyles(() =>
   createStyles({
-    list: {
-      marginTop: '32px'
+    projectList: {
+      paddingTop: '30px',
+      height: 'calc(100% - 100px)',
+      overflow: 'auto'
+    },
+    listItem: {
+      padding: '0px',
+      paddingBottom: '20px'
+    },
+    projectContainer: {
+      width: '100%',
+      minWidth: '300px',
     },
     project: {
-      width: '50%'
+      width: '90%',
+      paddingBottom: '20px'
     },
     icon: {
       backgroundColor: colors.info,
@@ -29,32 +39,29 @@ interface ProjectListProps { }
 
 export const ProjectList: React.FC<ProjectListProps> = () => {
 
-  const { i18n } = useTranslation();
-  const [projects, setProjects] = useState<Project[]>([]);
+  const { projects } = useContext(ProjectsContext);
   const classes = useStyles();
-
-  useEffect(() => {
-    getProjectsByLanguage(i18n.language, setProjects);
-  }, [i18n.language]);
 
   console.log('new projects: ', projects)
 
   return (
-    <Grid container spacing={3} direction='column' alignItems='center' className={classes.list}>
+    <List className={classes.projectList}>
       {
         projects.map((project: Project) => (
-          <Grid item key={project.id} container spacing={3} direction='column' alignItems='center'>
-            <Grid item className={classes.project}>
-              <ProjectContainer values={project} />
-            </Grid>
-            {projects.length !== project.id &&
-              < Grid item >
-                <ExpandMoreIcon className={classes.icon} />
+          <ListItem key={project.id} className={classes.listItem}>
+            <Grid container className={classes.projectContainer} direction='column' alignItems='center'>
+              <Grid item className={classes.project}>
+                <ProjectContainer values={project} />
               </Grid>
-            }
-          </Grid>
+              {projects.length !== project.id &&
+                < Grid item >
+                  <ExpandMoreIcon className={classes.icon} />
+                </Grid>
+              }
+            </Grid>
+          </ListItem>
         ))
       }
-    </Grid >
+    </List >
   )
 }

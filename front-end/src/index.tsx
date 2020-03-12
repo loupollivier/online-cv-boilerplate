@@ -8,6 +8,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import i18n from './locales/i18n';
 import { Auth0Provider } from './contexts/auth0-context';
+import ContextProvider from './contexts/projects-context';
 
 const theme = createMuiTheme({
   palette: {
@@ -36,11 +37,13 @@ render(
     <MuiThemeProvider theme={theme}>
       <I18nextProvider i18n={i18n}>
         <Suspense fallback={null}>
-          <App />
+          <ContextProvider>
+            <App />
+          </ContextProvider>
         </Suspense>
       </I18nextProvider>
     </MuiThemeProvider>
-  </Auth0Provider>,
+  </Auth0Provider >,
   document.getElementById('root'),
 );
 

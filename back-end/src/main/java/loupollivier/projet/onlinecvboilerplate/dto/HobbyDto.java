@@ -6,22 +6,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ExperienceDto {
+public class HobbyDto {
 
     @JsonProperty("id")
     private Integer id;
-    @JsonProperty("startDate")
-    private LocalDate startDate;
-    @JsonProperty("endDate")
-    private LocalDate endDate;
-    @JsonProperty("title")
-    private String title;
+    @JsonProperty("imageUrl")
+    private String imageUrl;
+    @JsonProperty("name")
+    private String name;
     @JsonProperty("description")
     private String description;
     @JsonProperty("language")

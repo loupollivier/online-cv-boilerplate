@@ -7,7 +7,7 @@ import { Typography, createStyles, Toolbar, Button, Grid, Switch } from '@materi
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
-      flexGrow: 1,
+      minHeight: '40px',
       backgroundColor: 'white',
       color: 'black',
     },
@@ -47,7 +47,7 @@ export const TopBar: React.FC<TabsBarOwnProps> = ({ isLoading, user, login, logo
   }
 
   return (
-    <Toolbar className={classes.root} variant='dense'>
+    <Toolbar className={classes.root}>
       <Grid container justify='space-between' alignItems='center'>
         <Grid item>
           {!user && (

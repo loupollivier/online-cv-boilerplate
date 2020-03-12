@@ -19,10 +19,6 @@ public class ProjectDto {
 
     @JsonProperty("id")
     private Integer id;
-    @JsonProperty("title")
-    private String title;
-    @JsonProperty("description")
-    private String description;
     @JsonProperty("client")
     private String client;
     @JsonProperty("startDate")
@@ -31,8 +27,14 @@ public class ProjectDto {
     private LocalDate endDate;
     @JsonProperty("teamSize")
     private Integer teamSize;
+    @JsonProperty("title")
+    private String title;
+    @JsonProperty("description")
+    private String description;
     @JsonProperty("position")
     private String position;
+    @JsonProperty("language")
+    private String language;
     @JsonProperty("technologies")
     private List<TechnologyEntity> technologies;
     @JsonProperty("tools")

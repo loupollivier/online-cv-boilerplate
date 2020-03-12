@@ -2,11 +2,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 
-import { createStyles, Typography, Grid, Breadcrumbs, Divider, Button } from '@material-ui/core';
+import { createStyles, Typography, Grid, Breadcrumbs, Divider, Button, Hidden } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 import { ProjectFormValues } from './projectForm';
-import { colors } from '../../constants/styles';
+import { colors, fontSizes } from '../../constants/styles';
 import { Technology } from '../../models/technology';
 import { Tool } from '../../models/tool';
 import { useAuth0 } from '../../contexts/auth0-context';
@@ -14,30 +14,32 @@ import { useAuth0 } from '../../contexts/auth0-context';
 const useStyles = makeStyles(() =>
   createStyles({
     title: {
-      fontSize: '18px'
+      fontSize: fontSizes.title,
+      fontWeight: 'bold',
     },
     subtitle: {
-      fontSize: '14px',
+      fontSize: fontSizes.regular,
       paddingBottom: '16px',
       color: colors.subtitle
     },
     description: {
-      fontSize: '14px'
+      fontSize: fontSizes.regular
     },
     info: {
-      fontSize: '14px',
+      fontSize: fontSizes.regular,
       fontWeight: 'bold'
     },
     contentRight: {
-      width: '48%',
-      paddingLeft: '16px',
-      justify: 'space-between'
+      width: '49%',
+      paddingLeft: '14px',
+      borderLeftColor: 'black',
+      borderLeftWidth: 1
     },
     divider: {
-      width: '2%'
+      width: '2px'
     },
     contentLeft: {
-      width: '48%',
+      width: '49%',
       paddingRight: '16px',
     },
     edit: {
@@ -58,7 +60,7 @@ export const ProjectCard: React.FC<ProjectProps> = ({ project, onEdit }) => {
   const { user } = useAuth0();
 
   return (
-    <Grid container direction="row" spacing={2} justify='center'>
+    <Grid container direction="row" justify='center'>
       <Grid item className={classes.contentLeft}>
         <Typography className={classes.title}>{project.title}</Typography>
         {project.endDate ? (
@@ -89,9 +91,11 @@ export const ProjectCard: React.FC<ProjectProps> = ({ project, onEdit }) => {
           })}
         </Breadcrumbs>
       </Grid>
-      <Grid item className={classes.divider}>
-        <Divider orientation="vertical" />
-      </Grid>
+      <Hidden smDown>
+        <Grid item className={classes.divider}>
+          <Divider orientation="vertical" />
+        </Grid>
+      </Hidden>
       <Grid item className={classes.contentRight}>
         <Typography className={classes.description} align='justify'>
           {project.description}

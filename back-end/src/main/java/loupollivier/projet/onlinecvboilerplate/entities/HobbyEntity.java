@@ -7,17 +7,22 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tools")
-public class ToolEntity implements Serializable {
+@Table(name = "hobbies")
+public class HobbyEntity implements Serializable {
 
     @Id
     @Column(name="id")
     private Integer id;
-    @Column(name="name")
-    private String name;
+    @Column(name="image_url")
+    private String imageUrl;
+    @OneToMany(mappedBy = "hobby")
+    @ToString.Exclude
+    private List<HobbyDetailsEntity> details;
+
 }
