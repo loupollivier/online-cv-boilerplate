@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 
-import { Theme, createStyles, Grid, Avatar, Divider, Typography, Stepper, Step, StepLabel, StepContent } from '@material-ui/core';
+import { Theme, createStyles, Grid, Avatar, Divider, Typography, Stepper, Step, StepLabel, StepContent, List, ListItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
@@ -12,9 +12,14 @@ import { ExperiencesContext } from '../../contexts/experiences-context';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    descriptionContainer: {
-      width: '100%',
-      paddingTop: '30px'
+    descriptionList: {
+      paddingTop: '30px',
+      height: 'calc(100% - 100px)',
+      overflow: 'auto'
+    },
+    listItem: {
+      padding: '0px',
+      paddingBottom: '40px'
     },
     avatar: {
       width: theme.spacing(8),
@@ -29,8 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     body: {
       width: '90%',
-      alignItems: 'center',
-      marginBottom: '64px'
+      paddingTop: '15px'
     },
     experiences: {
       backgroundColor: 'rgba(0,0,0,0)',
@@ -100,34 +104,45 @@ export const DescriptionCard: React.FC<ExperienceProps> = () => {
   const { t } = useTranslation();
   const classes = useStyles();
 
+  console.log("experiences: ", experiences)
+
   return (
-    <Grid container direction='column' alignItems='center' className={classes.descriptionContainer}>
-      <Grid item>
-        <Avatar alt='Loup Ollivier' src={'https://lh3.googleusercontent.com/a-/AAuE7mCy5OQzhRu9KjOsdvXQNyaRWp0jTF_f2w3s30NK'} className={classes.avatar}></Avatar>
-      </Grid>
-      <Grid item>
-        <Typography className={classes.name} variant='h6'>Loup Ollivier</Typography>
-      </Grid>
-      <Divider className={classes.divider} variant='middle' />
-      <Grid item className={classes.body}>
-        <Typography align='justify' style={{ fontSize: '14px' }}>
-          {t('description.text')}
-        </Typography>
-      </Grid>
-      <Grid item className={classes.body}>
-        <Stepper orientation="vertical" className={classes.experiences}>
-          {experiences.map((experience: Experience, index: number) => (
-            <Step key={index} active={true} >
-              <StepLabel StepIconComponent={StepIcon}>
-                {RenderDate(experience, t)}
-              </StepLabel>
-              <StepContent>
-                <Typography align='justify' className={classes.description}>{experience.description}</Typography>
-              </StepContent>
-            </Step>
-          ))}
-        </Stepper>
-      </Grid>
-    </Grid>
+    <List className={classes.descriptionList}>
+      <ListItem className={classes.listItem}>
+        <Grid container direction='column' alignItems='center'>
+          <Grid item>
+            <Avatar alt='Loup Ollivier' src={'https://lh3.googleusercontent.com/a-/AAuE7mCy5OQzhRu9KjOsdvXQNyaRWp0jTF_f2w3s30NK'} className={classes.avatar}></Avatar>
+          </Grid>
+          <Grid item>
+            <Typography className={classes.name} variant='h6'>Loup Ollivier</Typography>
+          </Grid>
+          <Divider className={classes.divider} variant='middle' />
+          <Grid item className={classes.body}>
+            <Typography align='justify' style={{ fontSize: '14px' }}>
+              {t('description.text')}
+            </Typography>
+          </Grid>
+        </Grid>
+      </ListItem>
+      <ListItem className={classes.listItem}>
+        <Grid container direction='column' alignItems='center'>
+          <Grid item className={classes.body}>
+            <Stepper orientation="vertical" className={classes.experiences}>
+              {experiences.map((experience: Experience, index: number) => (
+                <Step key={index} active={true} >
+                  <StepLabel StepIconComponent={StepIcon}>
+                    {RenderDate(experience, t)}
+                  </StepLabel>
+                  <StepContent>
+                    <Typography align='justify' className={classes.description}>{experience.description}</Typography>
+                  </StepContent>
+                </Step>
+              ))}
+            </Stepper>
+          </Grid>
+        </Grid>
+      </ListItem>
+    </List>
+
   );
 }

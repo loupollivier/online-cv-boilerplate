@@ -4,7 +4,7 @@ import { Project } from '../models/project';
 import { api } from '../constants/apiEndpoints';
 
 export async function getProjects(setState: any) {
-  const getCallAPI = await Axios.get(api.projects, {});
+  const getCallAPI = await Axios.get(api.projects);
   const data: Project[] = await getCallAPI.data;
   console.log("getProjects: ", data)
   setState(data);

@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useContext } from 'react';
 
 import { makeStyles, createStyles, List, ListItem, Grid } from '@material-ui/core';
 
 import { HobbyContainer } from './hobbyContainer';
 import { Hobby } from '../../models/hobby';
 import { colors } from '../../constants/styles';
-import { getHobbies } from '../../actions/hobbyActions';
+import { HobbiesContext } from '../../contexts/hobbies-context';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -31,15 +30,10 @@ interface HobbyListProps { }
 
 export const HobbyList: React.FC<HobbyListProps> = () => {
 
-  const { i18n } = useTranslation();
-  const [hobbies, setHobbies] = useState<Hobby[]>([]);
+  const { hobbies } = useContext(HobbiesContext);
   const classes = useStyles();
 
-  useEffect(() => {
-    getHobbies(setHobbies);
-  }, [i18n.language]);
-
-  console.log('new hobbies: ', hobbies)
+  console.log('hobbies: ', hobbies)
 
   return (
     <List className={classes.hobbyList}>

@@ -11,6 +11,7 @@ import { TopBar } from './TopBar';
 import { HobbyList } from './hobbies/hobbyList';
 import ProjectsProvider from '../contexts/projects-context';
 import ExperiencesProvider from '../contexts/experiences-context';
+import HobbiesProvider from '../contexts/hobbies-context';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -124,7 +125,9 @@ export const TabsBar: React.FC<TabsBarOwnProps> = ({ isLoading, user, login, log
         </ProjectsProvider>
       </TabPanel>
       <TabPanel value={value} index={2} background={backgrounds[2]}>
-        <HobbyList />
+        <HobbiesProvider>
+          <HobbyList />
+        </HobbiesProvider>
       </TabPanel>
     </div>
   )
