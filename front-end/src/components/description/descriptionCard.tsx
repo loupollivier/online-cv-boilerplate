@@ -104,7 +104,7 @@ export const DescriptionCard: React.FC<ExperienceProps> = () => {
   const { t } = useTranslation();
   const classes = useStyles();
 
-  console.log("experiences: ", experiences)
+  //console.log("experiences: ", experiences)
 
   return (
     <List className={classes.descriptionList}>

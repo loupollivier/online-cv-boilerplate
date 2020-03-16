@@ -23,6 +23,7 @@ export class Auth0Provider extends Component {
   }
 
   initializeAuth0 = async () => {
+    console.log("initialize auth")
     const auth0Client = await createAuth0Client(this.config);
     this.setState({ auth0Client });
 
@@ -31,7 +32,9 @@ export class Auth0Provider extends Component {
     }
 
     const isAuthenticated = await auth0Client.isAuthenticated();
+    console.log("is auth ? ", isAuthenticated)
     const user = isAuthenticated ? await auth0Client.getUser() : null;
+    console.log("user ? ", user)
     this.setState({ isLoading: false, isAuthenticated, user });
   };
 

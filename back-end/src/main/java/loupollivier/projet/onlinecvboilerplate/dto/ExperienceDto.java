@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -20,10 +21,6 @@ public class ExperienceDto {
     private LocalDate startDate;
     @JsonProperty("endDate")
     private LocalDate endDate;
-    @JsonProperty("title")
-    private String title;
-    @JsonProperty("description")
-    private String description;
-    @JsonProperty("language")
-    private String language;
+    @JsonProperty("details")
+    private List<ExperienceDetailsDto> details;
 }

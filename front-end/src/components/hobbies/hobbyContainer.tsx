@@ -5,7 +5,7 @@ import { createStyles, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 import { HobbyForm, HobbyFormValues } from './hobbyForm';
-import { Hobby } from '../../models/hobby';
+import { Hobby, HobbyDetails } from '../../models/hobby';
 import { HobbyCard } from './hobbyCard';
 
 const useStyles = makeStyles(() =>
@@ -18,20 +18,26 @@ const useStyles = makeStyles(() =>
 );
 
 interface HobbyOwnProps {
-  values: HobbyFormValues;
+  values: Hobby;
 }
 
 export const HobbyContainer: React.FC<HobbyOwnProps> = ({ values }) => {
   const [isEditMode, setEditMode] = React.useState(false);
   const classes = useStyles();
+  const hobbyForm: HobbyFormValues = {
+    id: values.id,
+    imageUrl: values.imageUrl,
+    language: values.details[0].language,
+    name: values.details[0].name,
+    description: values.details[0].description,
+  }
 
   function handleEditClick(): void {
     setEditMode(!isEditMode);
   };
 
-  function handleSubmitHobby(values: any): void {
-    const hobby: Hobby = values;
-    console.log('submit hobby:', hobby);
+  function handleSubmitHobby(values: HobbyFormValues): void {
+    console.log('submit hobby:', values);
     setEditMode(!isEditMode);
   }
 
@@ -42,7 +48,7 @@ export const HobbyContainer: React.FC<HobbyOwnProps> = ({ values }) => {
           <HobbyForm
             onSubmit={handleSubmitHobby}
             onCancel={handleEditClick}
-            initialFormValues={values}
+            initialFormValues={hobbyForm}
           />
         </Paper>
       ) : (

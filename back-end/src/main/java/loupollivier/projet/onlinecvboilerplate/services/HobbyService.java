@@ -1,12 +1,10 @@
 package loupollivier.projet.onlinecvboilerplate.services;
 
-import loupollivier.projet.onlinecvboilerplate.dto.HobbyDto;
 import loupollivier.projet.onlinecvboilerplate.entities.HobbyEntity;
 
 import java.util.List;
 
 public interface HobbyService {
-    List<HobbyEntity> findAll();
 
-    List<HobbyDto> convertEntitiesToDto(List<HobbyEntity> hobbies);
+    List<HobbyEntity> findAll();
 }

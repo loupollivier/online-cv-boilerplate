@@ -27,16 +27,10 @@ public class ProjectDto {
     private LocalDate endDate;
     @JsonProperty("teamSize")
     private Integer teamSize;
-    @JsonProperty("title")
-    private String title;
-    @JsonProperty("description")
-    private String description;
-    @JsonProperty("position")
-    private String position;
-    @JsonProperty("language")
-    private String language;
     @JsonProperty("technologies")
     private List<TechnologyEntity> technologies;
     @JsonProperty("tools")
     private List<ToolEntity> tools;
+    @JsonProperty("details")
+    private List<ProjectDetailsDto> details;
 }

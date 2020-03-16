@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,10 +18,6 @@ public class HobbyDto {
     private Integer id;
     @JsonProperty("imageUrl")
     private String imageUrl;
-    @JsonProperty("name")
-    private String name;
-    @JsonProperty("description")
-    private String description;
-    @JsonProperty("language")
-    private String language;
+    @JsonProperty("details")
+    private List<HobbyDetailsDto> details;
 }

@@ -6,9 +6,7 @@ import loupollivier.projet.onlinecvboilerplate.entities.ProjectEntity;
 import java.util.List;
 
 public interface ProjectService {
+
     List<ProjectEntity> findAll();
-
     List<ProjectEntity> findAllByLanguage(String language);
-
-    List<ProjectDto> convertEntitiesToDto(List<ProjectEntity> projects);
 }

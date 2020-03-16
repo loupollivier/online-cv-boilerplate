@@ -24,6 +24,8 @@ const useStyles = makeStyles(() =>
 );
 
 export interface HobbyFormValues {
+  id: number,
+  language: string,
   name: string,
   description: string,
   imageUrl: string,
@@ -43,16 +45,24 @@ export const HobbyForm: React.FC<FormProps> = ({ initialFormValues, onSubmit, on
     <Formik initialValues={initialFormValues} onSubmit={values => { onSubmit(values); }} enableReinitialize>
       {({ values, setFieldValue, handleBlur }) => (
         <Form>
-          <Grid container direction='row' spacing={3}>
-            <Grid item md={6} xs={12}>
+          <Grid container direction='column' spacing={3}>
+            <Grid item>
               <Field
-                label={t('project.label.position')}
+                label={t('hobby.label.name')}
                 name="name"
                 component={TextFieldWrap}
               />
               <Field
-                label={t('project.label.teamSize')}
+                label={t('hobby.label.language')}
+                name="language"
+                component={TextFieldWrap}
+              />
+            </Grid>
+            <Grid item>
+              <Field
+                label={t('hobby.label.description')}
                 name="description"
+                multiline={true}
                 component={TextFieldWrap}
               />
             </Grid>
