@@ -1,5 +1,6 @@
 package loupollivier.projet.onlinecvboilerplate.services.impl;
 
+import loupollivier.projet.onlinecvboilerplate.entities.HobbyDetailsEntity;
 import loupollivier.projet.onlinecvboilerplate.entities.HobbyEntity;
 import loupollivier.projet.onlinecvboilerplate.repositories.HobbyRepository;
 import loupollivier.projet.onlinecvboilerplate.services.HobbyService;
@@ -21,4 +22,13 @@ public class HobbyServiceImpl implements HobbyService {
         return hobbyRepository.findAll();
     }
 
+    @Override
+    public void saveOne(HobbyEntity hobby) {
+        List<HobbyDetailsEntity> details = hobby.getDetails();
+        for(HobbyDetailsEntity detail : details) {
+            detail.setHobby(hobby);
+        }
+        hobby.setDetails(details);
+        hobbyRepository.save(hobby);
+    }
 }

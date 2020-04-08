@@ -26,8 +26,8 @@ const useStyles = makeStyles(() =>
     pageContent: {
       height: '100%',
       backgroundColor: 'rgba(255,255,255,.95)',
-      marginLeft: '25%',
-      marginRight: '25%'
+      marginLeft: '18%',
+      marginRight: '18%'
     },
     appBar: {
       height: '80px'
@@ -98,7 +98,7 @@ function setTabProps(index: any) {
 export const TabsBar: React.FC<TabsBarOwnProps> = ({ isLoading, user, login, logout, backgrounds }) => {
   const { t } = useTranslation();
   const classes = useStyles();
-  const [value, setValue] = React.useState(2);
+  const [value, setValue] = React.useState(1);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);

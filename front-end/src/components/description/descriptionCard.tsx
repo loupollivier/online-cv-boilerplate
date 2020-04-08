@@ -75,7 +75,7 @@ function RenderDate(experience: Experience, t: any) {
       {!experience.endDate ? (
         <Typography style={{ fontWeight: 'bold', fontSize: fontSizes.regular }}>
           {moment(experience.startDate).format(t('dateFormat.monthYear'))}
-          {t('experience.date.today')} : {experience.title}
+          {t('experience.date.today')} : {experience.details[0].title}
         </Typography>
       ) : (
           <>
@@ -83,13 +83,13 @@ function RenderDate(experience: Experience, t: any) {
               <Typography style={{ fontWeight: 'bold', fontSize: fontSizes.regular }}>
                 {moment(experience.startDate).format(t('dateFormat.month'))}
                 {t('experience.date.to')}
-                {moment(experience.endDate).format(t('dateFormat.monthYear'))} : {experience.title}
+                {moment(experience.endDate).format(t('dateFormat.monthYear'))} : {experience.details[0].title}
               </Typography>
             ) : (
                 <Typography style={{ fontWeight: 'bold', fontSize: fontSizes.regular }}>
                   {moment(experience.startDate).format(t('dateFormat.monthYear'))}
                   {t('experience.date.to')}
-                  {moment(experience.endDate).format(t('dateFormat.monthYear'))} : {experience.title}
+                  {moment(experience.endDate).format(t('dateFormat.monthYear'))} : {experience.details[0].title}
                 </Typography>
               )}
           </>
@@ -103,9 +103,6 @@ export const DescriptionCard: React.FC<ExperienceProps> = () => {
   const { experiences } = useContext(ExperiencesContext);
   const { t } = useTranslation();
   const classes = useStyles();
-
-  //console.log("experiences: ", experiences)
-
   return (
     <List className={classes.descriptionList}>
       <ListItem className={classes.listItem}>
@@ -134,7 +131,7 @@ export const DescriptionCard: React.FC<ExperienceProps> = () => {
                     {RenderDate(experience, t)}
                   </StepLabel>
                   <StepContent>
-                    <Typography align='justify' className={classes.description}>{experience.description}</Typography>
+                    <Typography align='justify' className={classes.description}>{experience.details[0].description}</Typography>
                   </StepContent>
                 </Step>
               ))}

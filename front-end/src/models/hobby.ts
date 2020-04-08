@@ -5,6 +5,7 @@ export interface Hobby {
 }
 
 export interface HobbyDetails {
+  id: number;
   name: string;
   description: string;
   language: string;

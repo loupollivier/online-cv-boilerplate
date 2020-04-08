@@ -9,4 +9,5 @@ public interface ProjectService {
 
     List<ProjectEntity> findAll();
     List<ProjectEntity> findAllByLanguage(String language);
+    void saveOne(ProjectEntity project);
 }

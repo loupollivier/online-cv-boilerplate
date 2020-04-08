@@ -5,11 +5,11 @@ import moment from 'moment';
 import { createStyles, Typography, Grid, Breadcrumbs, Divider, Button, Hidden } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
-import { ProjectFormValues } from './projectForm';
 import { colors, fontSizes } from '../../constants/styles';
 import { Technology } from '../../models/technology';
 import { Tool } from '../../models/tool';
 import { useAuth0 } from '../../contexts/auth0-context';
+import { Project } from '../../models/project';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -43,6 +43,7 @@ const useStyles = makeStyles(() =>
       paddingRight: '16px',
     },
     edit: {
+      marginTop: '10px',
       marginLeft: '8px'
     }
   })
@@ -50,7 +51,7 @@ const useStyles = makeStyles(() =>
 
 
 interface ProjectProps {
-  project: ProjectFormValues,
+  project: Project,
   onEdit: () => void,
 }
 
@@ -60,52 +61,56 @@ export const ProjectCard: React.FC<ProjectProps> = ({ project, onEdit }) => {
   const { user } = useAuth0();
 
   return (
-    <Grid container direction="row" justify='center'>
-      <Grid item className={classes.contentLeft}>
-        <Typography className={classes.title}>{project.title}</Typography>
-        {project.endDate ? (
-          <Typography className={classes.subtitle}>
-            {moment(project.startDate).format(t('dateFormat.monthYear'))} - {moment(project.endDate).format(t('dateFormat.monthYear'))}
-            {t('project.subtitleDate.for')} {project.client}
-          </Typography>
-        ) : (
+    <Grid container direction='column' alignItems='center'>
+      <Grid item container direction="row" justify='center'>
+        <Grid item className={classes.contentLeft}>
+          <Typography className={classes.title}>{project.details[0].title}</Typography>
+          {project.endDate ? (
             <Typography className={classes.subtitle}>
-              {t('project.subtitleDate.since')} {moment(project.startDate).format(t('dateFormat.monthYear'))} {t('project.subtitleDate.for')} {project.client}
+              {moment(project.startDate).format(t('dateFormat.monthYear'))} - {moment(project.endDate).format(t('dateFormat.monthYear'))}
+              {t('project.subtitleDate.for')} {project.client}
             </Typography>
-          )}
-        <Typography className={classes.info}>{project.position}</Typography>
-        <Typography className={classes.info}>{project.teamSize} {t('project.infos.teamSize')}</Typography>
-        <div style={{ height: '8px' }} />
-        <Breadcrumbs aria-label='technologies' maxItems={4} itemsBeforeCollapse={3} itemsAfterCollapse={1}>
-          {project.technologies.map((technology: Technology, index: any) => {
-            return (
-              <Typography key={index} className={classes.info}>{technology.name}</Typography>
-            )
-          })}
-        </Breadcrumbs>
-        <Breadcrumbs aria-label='tools' maxItems={2} itemsBeforeCollapse={3} itemsAfterCollapse={1}>
-          {project.tools.map((tool: Tool, index: any) => {
-            return (
-              <Typography key={index} className={classes.info}>{tool.name}</Typography>
-            )
-          })}
-        </Breadcrumbs>
-      </Grid>
-      <Hidden smDown>
-        <Grid item className={classes.divider}>
-          <Divider orientation="vertical" />
+          ) : (
+              <Typography className={classes.subtitle}>
+                {t('project.subtitleDate.since')} {moment(project.startDate).format(t('dateFormat.monthYear'))} {t('project.subtitleDate.for')} {project.client}
+              </Typography>
+            )}
+          <Typography className={classes.info}>{project.details[0].position}</Typography>
+          <Typography className={classes.info}>{project.teamSize} {t('project.infos.teamSize')}</Typography>
+          <div style={{ height: '8px' }} />
+          <Breadcrumbs aria-label='technologies' maxItems={4} itemsBeforeCollapse={3} itemsAfterCollapse={1}>
+            {project.technologies.map((technology: Technology, index: any) => {
+              return (
+                <Typography key={index} className={classes.info}>{technology.name}</Typography>
+              )
+            })}
+          </Breadcrumbs>
+          <Breadcrumbs aria-label='tools' maxItems={2} itemsBeforeCollapse={3} itemsAfterCollapse={1}>
+            {project.tools.map((tool: Tool, index: any) => {
+              return (
+                <Typography key={index} className={classes.info}>{tool.name}</Typography>
+              )
+            })}
+          </Breadcrumbs>
         </Grid>
-      </Hidden>
-      <Grid item className={classes.contentRight}>
-        <Typography className={classes.description} align='justify'>
-          {project.description}
-        </Typography>
+        <Hidden smDown>
+          <Grid item className={classes.divider}>
+            <Divider orientation="vertical" />
+          </Grid>
+        </Hidden>
+        <Grid item className={classes.contentRight}>
+          <Typography className={classes.description} align='justify'>
+            {project.details[0].description}
+          </Typography>
+        </Grid>
       </Grid>
-      {user && (user.nickname === 'loup.ollivier') &&
-        <Button size='small' variant="outlined" color="primary" className={classes.edit} onClick={onEdit}>
-          {t('project.button.edit')}
-        </Button>
-      }
+      <Grid item >
+        {user && (user.nickname === 'loup.ollivier') &&
+          <Button size='small' variant="outlined" color="primary" className={classes.edit} onClick={onEdit}>
+            {t('project.button.edit')}
+          </Button>
+        }
+      </Grid>
     </Grid>
   );
 }

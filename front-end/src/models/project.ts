@@ -7,10 +7,15 @@ export interface Project {
   startDate: Date;
   endDate: Date;
   teamSize: number;
+  technologies: Technology[];
+  tools: Tool[];
+  details: ProjectDetails[];
+}
+
+export interface ProjectDetails {
+  id: number;
   title: string;
   description: string;
   position: string;
   language: string;
-  technologies: Technology[];
-  tools: Tool[];
 }

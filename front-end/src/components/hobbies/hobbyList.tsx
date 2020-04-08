@@ -14,9 +14,16 @@ const useStyles = makeStyles(() =>
       height: 'calc(100% - 100px)',
       overflow: 'auto'
     },
+    listItem: {
+      padding: '0px',
+      paddingBottom: '20px'
+    },
     hobbyContainer: {
       width: '100%',
       minWidth: '300px'
+    },
+    hobby: {
+      width: '90%'
     },
     icon: {
       backgroundColor: colors.info,
@@ -29,19 +36,17 @@ const useStyles = makeStyles(() =>
 interface HobbyListProps { }
 
 export const HobbyList: React.FC<HobbyListProps> = () => {
-
   const { hobbies } = useContext(HobbiesContext);
   const classes = useStyles();
-
-  console.log('hobbies: ', hobbies)
-
   return (
     <List className={classes.hobbyList}>
       {
         hobbies.map((hobby: Hobby) => (
-          <ListItem key={hobby.id}>
-            <Grid container className={classes.hobbyContainer}>
-              <HobbyContainer values={hobby} />
+          <ListItem key={hobby.id} className={classes.listItem}>
+            <Grid container className={classes.hobbyContainer} direction='column' alignItems='center'>
+              <Grid item className={classes.hobby}>
+                <HobbyContainer values={hobby} />
+              </Grid>
             </Grid>
           </ListItem>
         ))}

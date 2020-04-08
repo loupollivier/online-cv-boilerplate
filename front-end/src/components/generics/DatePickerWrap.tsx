@@ -34,7 +34,10 @@ export const DatePickerWrap: React.FC<DateFieldProps> = (props: DateFieldProps) 
 
   const handleDateChange = (date: any): void => {
     setSelectedDate(date);
-    handleChange(name, moment(date).format(t('dateFormat.date.backFormat')));
+    console.log("date: ", date)
+    console.log("format: ", t('dateFormat.backFormat'))
+    console.log("change date: ", moment(date).format(t('dateFormat.backFormat')))
+    handleChange(name, moment(date).format(t('dateFormat.backFormat')));
   };
 
   const onDateClear = (e: any): void => {

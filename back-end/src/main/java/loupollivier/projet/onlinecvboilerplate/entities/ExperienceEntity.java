@@ -24,7 +24,7 @@ public class ExperienceEntity implements Serializable {
     private LocalDate startDate;
     @Column(name="end_date")
     private LocalDate endDate;
-    @OneToMany(mappedBy = "experience")
+    @OneToMany(mappedBy = "experience", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<ExperienceDetailsEntity> details;
 }

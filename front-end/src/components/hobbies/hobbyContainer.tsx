@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import 'moment/locale/fr';
 
 import { createStyles, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 import { HobbyForm, HobbyFormValues } from './hobbyForm';
-import { Hobby, HobbyDetails } from '../../models/hobby';
+import { Hobby } from '../../models/hobby';
 import { HobbyCard } from './hobbyCard';
+import { HobbiesContext } from '../../contexts/hobbies-context';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -22,7 +23,8 @@ interface HobbyOwnProps {
 }
 
 export const HobbyContainer: React.FC<HobbyOwnProps> = ({ values }) => {
-  const [isEditMode, setEditMode] = React.useState(false);
+  const [isEditMode, setEditMode] = useState(false);
+  const { updateHobby } = useContext(HobbiesContext);
   const classes = useStyles();
   const hobbyForm: HobbyFormValues = {
     id: values.id,
@@ -38,6 +40,7 @@ export const HobbyContainer: React.FC<HobbyOwnProps> = ({ values }) => {
 
   function handleSubmitHobby(values: HobbyFormValues): void {
     console.log('submit hobby:', values);
+    updateHobby(values);
     setEditMode(!isEditMode);
   }
 

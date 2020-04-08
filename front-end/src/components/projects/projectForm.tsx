@@ -30,15 +30,17 @@ const useStyles = makeStyles(() =>
 );
 
 export interface ProjectFormValues {
-  title: string,
-  description: string,
+  id: number,
+  language: string,
   client: string,
   startDate: Date,
   endDate: Date,
-  teamSize: number,
-  position: string,
   technologies: Technology[],
   tools: Tool[],
+  teamSize: number,
+  title: string,
+  description: string,
+  position: string,
 }
 
 interface FormProps {

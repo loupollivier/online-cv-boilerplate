@@ -7,4 +7,6 @@ import java.util.List;
 public interface HobbyService {
 
     List<HobbyEntity> findAll();
+
+    void saveOne(HobbyEntity hobby);
 }

@@ -10,6 +10,8 @@ export async function getProjects(setState: any) {
   setState(data);
 }
 
-export const editProject = async (language: string, project: Project) => {
-  //const postCallAPI = await Axios.post(api.setProject, { params: { language: language, project: project } });
+export async function saveProject(project: Project) {
+  console.log("send project: ", project)
+  const postCallAPI = await Axios.put(api.updateProject, project);
+  console.log('response status: ', postCallAPI.status);
 }

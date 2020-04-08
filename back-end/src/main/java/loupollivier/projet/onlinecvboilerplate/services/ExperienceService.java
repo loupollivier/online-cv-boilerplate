@@ -7,4 +7,5 @@ import java.util.List;
 public interface ExperienceService {
 
     List<ExperienceEntity> findAllByStartDateDesc();
+    void saveOne(ExperienceEntity experience);
 }

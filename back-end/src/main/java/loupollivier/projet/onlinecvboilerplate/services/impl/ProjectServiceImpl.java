@@ -1,5 +1,8 @@
 package loupollivier.projet.onlinecvboilerplate.services.impl;
 
+import loupollivier.projet.onlinecvboilerplate.entities.HobbyDetailsEntity;
+import loupollivier.projet.onlinecvboilerplate.entities.HobbyEntity;
+import loupollivier.projet.onlinecvboilerplate.entities.ProjectDetailsEntity;
 import loupollivier.projet.onlinecvboilerplate.entities.ProjectEntity;
 import loupollivier.projet.onlinecvboilerplate.repositories.ProjectRepository;
 import loupollivier.projet.onlinecvboilerplate.services.ProjectService;
@@ -24,5 +27,15 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<ProjectEntity> findAllByLanguage(String language) {
         return this.projectRepository.findAllByLanguage("fr");
+    }
+
+    @Override
+    public void saveOne(ProjectEntity project) {
+        List<ProjectDetailsEntity> details = project.getDetails();
+        for(ProjectDetailsEntity detail : details) {
+            detail.setProject(project);
+        }
+        project.setDetails(details);
+        projectRepository.save(project);
     }
 }

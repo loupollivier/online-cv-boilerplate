@@ -45,28 +45,23 @@ export const HobbyForm: React.FC<FormProps> = ({ initialFormValues, onSubmit, on
     <Formik initialValues={initialFormValues} onSubmit={values => { onSubmit(values); }} enableReinitialize>
       {({ values, setFieldValue, handleBlur }) => (
         <Form>
-          <Grid container direction='column' spacing={3}>
-            <Grid item>
-              <Field
-                label={t('hobby.label.name')}
-                name="name"
-                component={TextFieldWrap}
-              />
-              <Field
-                label={t('hobby.label.language')}
-                name="language"
-                component={TextFieldWrap}
-              />
-            </Grid>
-            <Grid item>
-              <Field
-                label={t('hobby.label.description')}
-                name="description"
-                multiline={true}
-                component={TextFieldWrap}
-              />
-            </Grid>
-          </Grid>
+
+          <Field
+            label={t('hobby.label.name')}
+            name="name"
+            component={TextFieldWrap}
+          />
+          <Field
+            label={t('hobby.label.imageUrl')}
+            name="imageUrl"
+            component={TextFieldWrap}
+          />
+          <Field
+            label={t('hobby.label.description')}
+            name="description"
+            multiline={true}
+            component={TextFieldWrap}
+          />
           <Grid container justify='space-between'>
             <Grid item>
               <Button

@@ -7,8 +7,9 @@ import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import i18n from './locales/i18n';
-import { Auth0Provider } from './contexts/auth0-context';
+// import Auth0Provider from './contexts/auth0-context';
 import ContextProvider from './contexts/projects-context';
+import Auth0Provider from './contexts/auth0-context';
 
 const theme = createMuiTheme({
   palette: {

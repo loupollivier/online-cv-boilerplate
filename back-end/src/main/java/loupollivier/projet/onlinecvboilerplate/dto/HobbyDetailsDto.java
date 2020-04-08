@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class HobbyDetailsDto {
 
+    @JsonProperty("id")
+    private Integer id;
     @JsonProperty("name")
     private String name;
     @JsonProperty("description")

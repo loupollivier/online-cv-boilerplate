@@ -38,12 +38,8 @@ const useStyles = makeStyles(() =>
 interface ProjectListProps { }
 
 export const ProjectList: React.FC<ProjectListProps> = () => {
-
   const { projects } = useContext(ProjectsContext);
   const classes = useStyles();
-
-  // console.log('projects: ', projects)
-
   return (
     <List className={classes.projectList}>
       {

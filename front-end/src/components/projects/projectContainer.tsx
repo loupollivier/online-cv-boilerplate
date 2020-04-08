@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import 'moment/locale/fr';
 
 import { createStyles, Paper } from '@material-ui/core';
@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/styles';
 import { ProjectForm, ProjectFormValues } from './projectForm';
 import { Project } from '../../models/project';
 import { ProjectCard } from './projectCard';
+import { ProjectsContext } from '../../contexts/projects-context';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -17,20 +18,34 @@ const useStyles = makeStyles(() =>
 );
 
 interface ProjectOwnProps {
-  values: ProjectFormValues,
+  values: Project,
 }
 
 export const ProjectContainer: React.FC<ProjectOwnProps> = ({ values }) => {
-  const [isEditMode, setEditMode] = React.useState(false);
+  const [isEditMode, setEditMode] = useState(false);
+  const { updateProject } = useContext(ProjectsContext);
   const classes = useStyles();
+  const projectFormValues: ProjectFormValues = {
+    id: values.id,
+    client: values.client,
+    startDate: values.startDate,
+    endDate: values.endDate,
+    teamSize: values.teamSize,
+    technologies: values.technologies,
+    tools: values.tools,
+    language: values.details[0].language,
+    title: values.details[0].title,
+    description: values.details[0].description,
+    position: values.details[0].position
+  }
 
   function handleEditClick(): void {
     setEditMode(!isEditMode);
   };
 
-  function handleSubmitProject(values: any): void {
-    const project: Project = values;
-    console.log('submit project:', project);
+  function handleSubmitProject(values: ProjectFormValues): void {
+    console.log('submit project:', values);
+    updateProject(values);
     setEditMode(!isEditMode);
   }
 
@@ -41,7 +56,7 @@ export const ProjectContainer: React.FC<ProjectOwnProps> = ({ values }) => {
           <ProjectForm
             onSubmit={handleSubmitProject}
             onCancel={handleEditClick}
-            initialFormValues={values}
+            initialFormValues={projectFormValues}
           />
         </Paper>
       ) : (

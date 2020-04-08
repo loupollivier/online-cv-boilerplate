@@ -30,7 +30,7 @@ public class ProjectEntity implements Serializable {
     private LocalDate endDate;
     @Column(name="team_size")
     private Integer teamSize;
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<ProjectDetailsEntity> details;
     @ManyToMany

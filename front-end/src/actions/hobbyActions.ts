@@ -9,3 +9,9 @@ export async function getHobbies(setState: any) {
   console.log("getHobbies: ", data)
   setState(data)
 }
+
+export async function saveHobby(hobby: Hobby) {
+  console.log("send hobby: ", hobby)
+  const postCallAPI = await Axios.put(api.updateHobby, hobby);
+  console.log('response status: ', postCallAPI.status);
+}

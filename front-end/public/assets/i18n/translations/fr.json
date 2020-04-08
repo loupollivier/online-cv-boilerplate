@@ -23,6 +23,7 @@
   "experience.date.to": " à ",
   "experience.date.today": " à aujourd'hui",
   "hobby.label.language": "langage",
+  "hobby.label.imageUrl": "url de l'image",
   "hobby.label.name": "nom",
   "hobby.label.description": "description",
   "error.fieldrequired": "* champ requis",

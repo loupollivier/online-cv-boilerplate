@@ -21,7 +21,7 @@ public class HobbyEntity implements Serializable {
     private Integer id;
     @Column(name="image_url")
     private String imageUrl;
-    @OneToMany(mappedBy = "hobby")
+    @OneToMany(mappedBy = "hobby", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<HobbyDetailsEntity> details;
 

@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ProjectDetailsDto {
 
+    @JsonProperty("id")
+    private Integer id;
     @JsonProperty("title")
     private String title;
     @JsonProperty("description")

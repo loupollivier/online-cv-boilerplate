@@ -2,7 +2,7 @@ export interface Experience {
   id: number;
   startDate: Date;
   endDate: Date;
-  detials: ExperienceDetails[];
+  details: ExperienceDetails[];
 }
 
 export interface ExperienceDetails {

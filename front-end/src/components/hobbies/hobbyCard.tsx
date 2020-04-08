@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/styles';
 import { Typography, Button, Grid, Paper } from '@material-ui/core';
 
 import { fontSizes, colors } from '../../constants/styles';
-import { HobbyFormValues } from './hobbyForm';
 import { useAuth0 } from '../../contexts/auth0-context';
 import { Hobby } from '../../models/hobby';
 
@@ -22,7 +21,7 @@ const useStyles = makeStyles({
   },
   text: {
     backgroundColor: 'rgba(255,255,255,.90)',
-    padding: '8px',
+    padding: '15px',
     marginLeft: '50%',
     width: '50%'
   },
@@ -53,12 +52,12 @@ export const HobbyCard: React.FC<HobbyProps> = ({ hobby, onEdit }) => {
   const { user } = useAuth0();
 
   return (
-    <Grid container direction='row'>
+    <Grid container direction='column' alignItems='center'>
       <Grid item className={classes.hobby} container>
         <Paper className={classes.background} style={{ backgroundImage: `url(${hobby.imageUrl})` }} elevation={0} square>
           <Grid item className={classes.text}>
             <Typography className={classes.title}>{hobby.details[0].name}</Typography>
-            <Typography className={classes.description}>{hobby.details[0].description}</Typography>
+            <Typography align='justify' className={classes.description}>{hobby.details[0].description}</Typography>
           </Grid>
         </Paper>
       </Grid>
