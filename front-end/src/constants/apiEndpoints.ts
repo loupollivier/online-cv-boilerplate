@@ -6,4 +6,5 @@ export const api = {
   tools: "http://localhost:8080/tools/getAll",
   technologies: "http://localhost:8080/technologies/getAll",
   experiences: "http://localhost:8080/experiences/getAll",
+  adminUsers: "https://dev-online-cv.eu.auth0.com/api/v2/roles/admin/users"
 }

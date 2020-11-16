@@ -3,13 +3,14 @@ import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 
 import { createStyles, Typography, Grid, Breadcrumbs, Divider, Button, Hidden } from '@material-ui/core';
+import { useAuth0 } from "@auth0/auth0-react";
 import { makeStyles } from '@material-ui/styles';
 
 import { colors, fontSizes } from '../../constants/styles';
 import { Technology } from '../../models/technology';
 import { Tool } from '../../models/tool';
-import { useAuth0 } from '../../contexts/auth0-context';
 import { Project } from '../../models/project';
+import { AUTH_CONFIG } from '../../config/authConfig';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -105,7 +106,7 @@ export const ProjectCard: React.FC<ProjectProps> = ({ project, onEdit }) => {
         </Grid>
       </Grid>
       <Grid item >
-        {user && (user.nickname === 'loup.ollivier') &&
+        {user && (user[AUTH_CONFIG.roleUrl] === "admin") &&
           <Button size='small' variant="outlined" color="primary" className={classes.edit} onClick={onEdit}>
             {t('project.button.edit')}
           </Button>

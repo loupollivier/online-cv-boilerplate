@@ -3,10 +3,11 @@ import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/styles';
 import { Typography, Button, Grid, Paper } from '@material-ui/core';
+import { useAuth0 } from "@auth0/auth0-react";
 
 import { fontSizes, colors } from '../../constants/styles';
-import { useAuth0 } from '../../contexts/auth0-context';
 import { Hobby } from '../../models/hobby';
+import { AUTH_CONFIG } from '../../config/authConfig';
 
 const useStyles = makeStyles({
   hobby: {
@@ -50,6 +51,9 @@ export const HobbyCard: React.FC<HobbyProps> = ({ hobby, onEdit }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const { user } = useAuth0();
+  if(user) {
+    console.log("is admin: ", user[AUTH_CONFIG.roleUrl] === "admin");
+  };
 
   return (
     <Grid container direction='column' alignItems='center'>
@@ -61,7 +65,7 @@ export const HobbyCard: React.FC<HobbyProps> = ({ hobby, onEdit }) => {
           </Grid>
         </Paper>
       </Grid>
-      {user && (user.nickname === 'loup.ollivier') &&
+      {user && (user[AUTH_CONFIG.roleUrl] === "admin") &&
         <Grid item>
           <Button size='small' variant="outlined" color="primary" className={classes.edit} onClick={onEdit}>
             {t('project.button.edit')}

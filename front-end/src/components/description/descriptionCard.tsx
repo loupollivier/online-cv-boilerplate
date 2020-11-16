@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 
-import { Theme, createStyles, Grid, Avatar, Divider, Typography, Stepper, Step, StepLabel, StepContent, List, ListItem } from '@material-ui/core';
+import { Theme, createStyles, Grid, Avatar, Divider, Typography, Stepper, Step, StepLabel, StepContent, List, ListItem, Card, CardContent } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: '40px'
     },
     avatar: {
-      width: theme.spacing(8),
-      height: theme.spacing(8)
+      width: theme.spacing(10),
+      height: theme.spacing(10)
     },
     name: {
       padding: theme.spacing(1),
@@ -108,16 +108,20 @@ export const DescriptionCard: React.FC<ExperienceProps> = () => {
       <ListItem className={classes.listItem}>
         <Grid container direction='column' alignItems='center'>
           <Grid item>
-            <Avatar alt='Loup Ollivier' src={'https://lh3.googleusercontent.com/a-/AAuE7mCy5OQzhRu9KjOsdvXQNyaRWp0jTF_f2w3s30NK'} className={classes.avatar}></Avatar>
+            <Avatar alt='Loup Ollivier' src={require("../../images/profile.jpg")} className={classes.avatar}/>
           </Grid>
           <Grid item>
             <Typography className={classes.name} variant='h6'>Loup Ollivier</Typography>
           </Grid>
           <Divider className={classes.divider} variant='middle' />
           <Grid item className={classes.body}>
-            <Typography align='justify' style={{ fontSize: '14px' }}>
-              {t('description.text')}
-            </Typography>
+            <Card elevation={0} style={{ borderRadius: "10px" }}>
+              <CardContent>
+                <Typography align='justify' style={{ fontSize: '14px' }}>
+                  {t('description.text')}
+                </Typography>
+              </CardContent>
+            </Card>
           </Grid>
         </Grid>
       </ListItem>
@@ -131,7 +135,11 @@ export const DescriptionCard: React.FC<ExperienceProps> = () => {
                     {RenderDate(experience, t)}
                   </StepLabel>
                   <StepContent>
-                    <Typography align='justify' className={classes.description}>{experience.details[0].description}</Typography>
+                    <Card elevation={0} style={{ borderRadius: "10px" }}>
+                      <CardContent>
+                        <Typography align='justify' className={classes.description}>{experience.details[0].description}</Typography>
+                      </CardContent>
+                    </Card>
                   </StepContent>
                 </Step>
               ))}

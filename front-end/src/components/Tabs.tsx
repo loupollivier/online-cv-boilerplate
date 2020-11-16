@@ -12,6 +12,10 @@ import { HobbyList } from './hobbies/hobbyList';
 import ProjectsProvider from '../contexts/projects-context';
 import ExperiencesProvider from '../contexts/experiences-context';
 import HobbiesProvider from '../contexts/hobbies-context';
+import hobbiesBackground from '../images/backgrounds/hobbiesBackground50perc.jpg';
+import homeBackground from '../images/backgrounds/homeBackground50perc.jpg';
+import projectsBackground from '../images/backgrounds/projectsBackground50perc.jpg';
+
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -25,7 +29,7 @@ const useStyles = makeStyles(() =>
     },
     pageContent: {
       height: '100%',
-      backgroundColor: 'rgba(255,255,255,.95)',
+      backgroundColor: 'rgba(255,255,255,.90)',
       marginLeft: '18%',
       marginRight: '18%'
     },
@@ -56,11 +60,6 @@ const StyledTab = withStyles({
 })(Tab);
 
 interface TabsBarOwnProps {
-  isLoading: boolean;
-  user: any;
-  login: any;
-  logout: any;
-  backgrounds: any;
 }
 
 interface TabPanelProps {
@@ -95,10 +94,13 @@ function setTabProps(index: any) {
   };
 }
 
-export const TabsBar: React.FC<TabsBarOwnProps> = ({ isLoading, user, login, logout, backgrounds }) => {
+export const TabsBar: React.FC<TabsBarOwnProps> = () => {
+
+const backgrounds = [homeBackground, projectsBackground, hobbiesBackground]
+
   const { t } = useTranslation();
   const classes = useStyles();
-  const [value, setValue] = React.useState(1);
+  const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
@@ -107,7 +109,7 @@ export const TabsBar: React.FC<TabsBarOwnProps> = ({ isLoading, user, login, log
   return (
     <div className={classes.root}>
       <AppBar position="sticky" className={classes.appBar}>
-        <TopBar isLoading={isLoading} user={user} login={login} logout={logout} />
+        <TopBar />
         <Tabs variant="fullWidth" value={value} onChange={handleChange} aria-label="nav-tabs">
           <StyledTab label={t('tabs.home')} {...setTabProps(0)} className={classes.homeTab} />
           <StyledTab label={t('tabs.projects')} {...setTabProps(1)} className={classes.projectsTab} />

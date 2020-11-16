@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography, createStyles, Toolbar, Button, Grid, Switch } from '@material-ui/core';
+import { useAuth0 } from "@auth0/auth0-react";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -20,17 +21,14 @@ const useStyles = makeStyles(() =>
   })
 );
 
-interface TabsBarOwnProps {
-  isLoading: boolean,
-  user: any,
-  login: any,
-  logout: any,
-}
+interface TabsBarOwnProps {}
 
-export const TopBar: React.FC<TabsBarOwnProps> = ({ isLoading, user, login, logout }) => {
+export const TopBar: React.FC<TabsBarOwnProps> = () => {
   const { t } = useTranslation();
   const { i18n } = useTranslation();
   const classes = useStyles();
+  const { loginWithPopup, logout, user, isAuthenticated, isLoading } = useAuth0();
+  console.log("user: ", user)
 
   const switchLanguage = () => () => {
     switch (i18n.language) {
@@ -50,15 +48,15 @@ export const TopBar: React.FC<TabsBarOwnProps> = ({ isLoading, user, login, logo
     <Toolbar className={classes.root}>
       <Grid container justify='space-between' alignItems='center'>
         <Grid item>
-          {!user && (
-            <Button color="inherit" onClick={login}>{t('app.login')}</Button>
+          {!isAuthenticated && (
+            <Button color="inherit" onClick={() => loginWithPopup ()}>{t('app.login')}</Button>
           )}
-          {!isLoading && user && (
+          {!isLoading && isAuthenticated && (
             <Button color="inherit" onClick={() => logout({ returnTo: window.location.origin })} size='medium'>{t('app.logout')}</Button>
           )}
         </Grid>
         <Grid item>
-          {user ? (
+          {isAuthenticated ? (
             <Typography variant="h6" className={classes.title}>
               {t('app.welcome')} {user.name}
             </Typography>
