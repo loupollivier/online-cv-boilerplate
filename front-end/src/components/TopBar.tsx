@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
+import useReactRouter from 'use-react-router';
 
-import { makeStyles } from '@material-ui/core/styles';
-import { Typography, createStyles, Toolbar, Button, Grid, Switch } from '@material-ui/core';
+import { makeStyles, Theme } from '@material-ui/core/styles';
+import { Typography, createStyles, Toolbar, Button, Grid, Switch, Avatar } from '@material-ui/core';
 import { useAuth0 } from "@auth0/auth0-react";
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       minHeight: '40px',
@@ -15,8 +16,14 @@ const useStyles = makeStyles(() =>
     title: {
       flexGrow: 1,
     },
-    grow: {
-      flexGrow: 1
+    avatar: {
+      width: theme.spacing(10),
+      height: theme.spacing(10)
+    },
+    name: {
+      color: "black",
+      marginLeft: "32px",
+      fontSize: "20px"
     }
   })
 );
@@ -26,6 +33,8 @@ interface TabsBarOwnProps {}
 export const TopBar: React.FC<TabsBarOwnProps> = () => {
   const { t } = useTranslation();
   const { i18n } = useTranslation();
+  const { history, location, match } = useReactRouter();
+  
   const classes = useStyles();
   const { loginWithPopup, logout, user, isAuthenticated, isLoading } = useAuth0();
   console.log("user: ", user)
@@ -47,6 +56,10 @@ export const TopBar: React.FC<TabsBarOwnProps> = () => {
   return (
     <Toolbar className={classes.root}>
       <Grid container justify='space-between' alignItems='center'>
+        <Grid item container direction="row" alignItems="center" md={6}>
+          <Avatar alt='logo' src={require("../images/logo.png")} className={classes.avatar}/>
+          <Typography className={classes.name}>Loup OLLIVIER</Typography>
+        </Grid>
         <Grid item>
           {!isAuthenticated && (
             <Button color="inherit" onClick={() => loginWithPopup ()}>{t('app.login')}</Button>
