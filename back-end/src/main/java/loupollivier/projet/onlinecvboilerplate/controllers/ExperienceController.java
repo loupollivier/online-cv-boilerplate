@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
 @RequestMapping("/experiences")
 public class ExperienceController {
 
-    private ExperienceService experienceService;
-    private ModelMapper modelMapper;
+    private final ExperienceService experienceService;
+    private final ModelMapper modelMapper;
 
     public ExperienceController(ExperienceService experienceService, ModelMapper modelMapper) {
         super();

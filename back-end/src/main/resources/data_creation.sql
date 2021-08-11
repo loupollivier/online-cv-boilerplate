@@ -1,4 +1,4 @@
-use wolf;
+use cvboilerplate;
 
 insert into projects(id,client,start_date,end_date,team_size) values (1, 'Bourse de Boston', '2019-03-15', null, 6);
 insert into projects(id,client,start_date,end_date,team_size) values (2, 'FMSQ', '2019-04-02', '2020-03-20', 3);
@@ -30,14 +30,14 @@ insert into hobby_details(id, name, description, language, hobby_id) values (6, 
 
 insert into experiences(id,start_date,end_date) values (1,'2017-06-01','2017-09-01');
 insert into experiences(id,start_date,end_date) values (2,'2018-03-01','2017-09-01');
-insert into experiences(id,start_date,end_date) values (3,'2019-02-11',null);
+insert into experiences(id,start_date,end_date) values (3,'2019-02-11','2020-06-01');
 
 insert into experience_details(id, title, description, language, experience_id) values (1, 'Chargé à la cyber sécurité','Chargé de la mise en place de nouvelles bonnes pratiques de cyber-sécurité et d\'un choix de nouvel outil de test d\'intrusion au sein d\'un des projets de Schneider Eletric.','fr',1);
 insert into experience_details(id, title, description, language, experience_id) values (2, 'Cyber security officer','Cyber security officer english description.','en',1);
 insert into experience_details(id, title, description, language, experience_id) values (3, 'Gestion de projet et ingénierie d\'affaire','Aide au recrutement et placement de candidats chez le clients Amadeus, ainsi que Scrum Master pour un projet interne de gestion des candidats pour Sogeti HighTech.','fr',2);
 insert into experience_details(id, title, description, language, experience_id) values (4, 'Project management and business engineering','Project management and business engineering english description.','en',2);
-insert into experience_details(id, title, description, language, experience_id) values (5, 'Développeur Full Stack et Scrum Master','Développeur Full Stack et Scrum Master dans le cadre de multiples projets, web et java, développés dans le studio de R3D conseil.','fr',1);
-insert into experience_details(id, title, description, language, experience_id) values (6, 'Full stack developer and Scrum master','Full stack developer and Scrum master english description.','en',1);
+insert into experience_details(id, title, description, language, experience_id) values (5, 'Développeur Full Stack et Scrum Master','Développeur Full Stack et Scrum Master dans le cadre de multiples projets, web et java, développés dans le studio de R3D conseil.','fr',3);
+insert into experience_details(id, title, description, language, experience_id) values (6, 'Full stack developer and Scrum master','Full stack developer and Scrum master english description.','en',3);
 
 insert into tools(id,name) values (1,'Microsoft Azure');
 insert into tools(id,name) values (2,'Visual Studio Code');
